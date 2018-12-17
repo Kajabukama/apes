@@ -1,0 +1,39 @@
+.form-wrapper{
+
+}
+.title-signup{
+   font-size:2rem;
+   font-weight: 100;
+   color:#34495e;
+}
+.title-signup span{
+   font-weight: 700;
+}
+.text-body-signup{
+   margin-bottom: 2rem;
+   margin-top: 2rem;
+   font-size: 15px;
+}
+.btn-signup{
+   padding: 1rem 6rem;
+   background-color: #2ecc71;
+   border-color: #2ecc71;
+}
+.btn-signup:hover{
+   background-color: #27ae60;
+   border-color: #27ae60;
+}
+.btn-signup:focus,.btn-signup:active {
+   outline: none !important;
+   box-shadow: none !important;
+   background-color: #27ae60 !important;
+   border-color: #27ae60 !important;
+}
+.nav-item{
+   font-size: 14px;
+}
+.active{
+   color: #2ecc71!important;
+   font-weight: 600;
+   font-size: 14px;
+}

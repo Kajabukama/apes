@@ -1,0 +1,24 @@
+.title-error{
+   font-size:8rem;
+   font-weight: 100;
+   color:#e74c3c;
+}
+.text-body-error{
+   margin-top: 2rem;
+   font-size: 15px;
+}
+.btn-error{
+   padding: 1rem 6rem;
+   background-color: #f35240;
+   border-color: #e74c3c;
+}
+.btn-error:hover{
+   background-color: #c0392b;
+   border-color: #c0392b;
+}
+.btn-error:focus,.btn-error:active {
+   outline: none !important;
+   box-shadow: none !important;
+   background-color: #c43c2d !important;
+   border-color: #c43c2d !important;
+}

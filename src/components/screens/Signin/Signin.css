@@ -1,0 +1,31 @@
+.form-wrapper{
+
+}
+.title-signin{
+   font-size:2rem;
+   font-weight: 100;
+   color:#27ae60;
+}
+.title-signin span{
+   font-weight: 700;
+}
+.text-body-signin{
+   margin-bottom: 2rem;
+   margin-top: 2rem;
+   font-size: 15px;
+}
+.btn-signin{
+   padding: 1rem 6rem;
+   background-color: #2ecc71;
+   border-color: #2ecc71;
+}
+.btn-signin:hover{
+   background-color: #27ae60;
+   border-color: #27ae60;
+}
+.btn-signin:focus,.btn-signin:active {
+   outline: none !important;
+   box-shadow: none !important;
+   background-color: #27ae60 !important;
+   border-color: #27ae60 !important;
+}

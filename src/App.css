@@ -1,32 +1,78 @@
-.App {
-  text-align: center;
+@import "./assets/css/fonts.css";
+body {
+  font-family: "Avenir";
+  background-color: #f1f1f1;
+  background-position: top top;
+  background-repeat: repeat;
+  /* font-size: 14px; */
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+a {
+  font-weight: 500;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+a:hover {
+  text-decoration: none;
+  color: #3498db;
+}
+.icons {
+  color: #2ecc71;
+  margin-left: 3px;
+}
+.material-icons {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  vertical-align: middle;
+}
+.push-down {
+  padding-top: 8rem;
+}
+.push-down-auth {
+  padding-top: 4rem;
+}
+.btn {
+  font-weight: 500;
+  border-radius: 3px;
+}
+input[type="text"] {
+  padding: 1.5rem 1rem;
+  border-width: 2px;
+  border-radius: 2px;
+}
+.form-control {
+  border-color: rgba(0, 0, 0, 0.322);
+  border-radius: 0;
+  color: #2c3e50;
+}
+.form-control:focus,
+.form-control:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #34495e !important;
+  border-width: 2px;
+}
+.text-wrapper {
+  padding: 2rem 0px !important;
+}
+.form-footer {
+  margin-top: 2rem;
+}
+.checkbox span {
+  margin-left: 10px;
+  color: #999999;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.react-overlay-loader-spinner:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -30px;
+  margin-left: -20px;
+  border-radius: 50%;
+  border: 3px solid #eee;
+  border-top-color: rgb(0, 209, 122) !important;
+  animation: react-overlay-loader-spinner 0.8s linear infinite;
 }

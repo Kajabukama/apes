@@ -1,0 +1,18 @@
+.text-wrapper{
+   padding: 3rem 2rem;
+}
+.nav-item-custom{
+   padding: 2px 1px;
+}
+.nav-item-custom a{
+   color: gray;
+}
+.copyright{
+   margin-top: 5px;
+   font-size: 14px;
+   font-weight: 700;
+}
+.copyright span{
+   margin-left: 10px;
+   color: #bdc3c7;
+}

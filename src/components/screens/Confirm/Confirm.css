@@ -1,0 +1,31 @@
+.text-wrapper{
+
+}
+.title-confirm{
+   font-size:2rem;
+   font-weight: 100;
+   color:#27ae60;
+}
+.title-confirm span{
+   font-weight: 700;
+}
+.text-body-confirm{
+   margin-bottom: 2rem;
+   margin-top: 2rem;
+   font-size: 15px;
+}
+.btn-confirm{
+   padding: 1rem 6rem;
+   background-color: #2ecc71;
+   border-color: #2ecc71;
+}
+.btn-confirm:hover{
+   background-color: #27ae60;
+   border-color: #27ae60;
+}
+.btn-confirm:focus,.btn-confirm:active {
+   outline: none !important;
+   box-shadow: none !important;
+   background-color: #27ae60 !important;
+   border-color: #27ae60 !important;
+}

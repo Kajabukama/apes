@@ -1,0 +1,28 @@
+.title-home{
+   font-size:3rem;
+   font-weight: 100;
+   color:#27ae60;
+}
+.title-home span{
+   font-weight: 700;
+}
+.text-body-home{
+   margin-bottom: 2rem;
+   margin-top: 2rem;
+   font-size: 15px;
+}
+.btn-home{
+   padding: 1rem 6rem;
+   background-color: #2ecc71;
+   border-color: #2ecc71;
+}
+.btn-home:hover{
+   background-color: #27ae60;
+   border-color: #27ae60;
+}
+.btn-home:focus,.btn-home:active {
+   outline: none !important;
+   box-shadow: none !important;
+   background-color: #27ae60 !important;
+   border-color: #27ae60 !important;
+}
