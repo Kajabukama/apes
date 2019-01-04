@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './normalize.css';
 import './App.css';
 import Routes from './router';
 import Navbar from './components/common/Navbar/Navbar';
