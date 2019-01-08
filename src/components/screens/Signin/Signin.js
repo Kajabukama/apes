@@ -9,7 +9,7 @@ class Signin extends Component {
       return (
          <div className="container">
             <div className="row">
-               <div className="col-5 m-auto">
+               <div className="col-md-5 m-auto">
                   
                <SigninForm/>
                   

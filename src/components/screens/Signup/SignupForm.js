@@ -1,195 +1,114 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { NotificationContainer, NotificationManager } from 'react-light-notifications';
-import 'react-light-notifications/lib/main.css';
-import axios from 'axios';
-import { uid } from 'rand-token';
-import { Loader } from "react-overlay-loader";
+import { Link } from 'react-router-dom';
 
-import "react-overlay-loader/styles.css";
-
-class SignupForm extends Component {
-
-   state = {
-      firstname: '',
-      lastname: '',
-      email: '',
-      mobile: '',
-      accept: '',
-      message: '',
-      status: '',
-      redirect: false,
-      isloading: false
-   }
-   
-   notify = (type, message, title, callback) => {
-      switch (type) {
-         case 'success':
-            NotificationManager.success({message:message, title:title, onClick:callback});
-            break;
-         case 'error':
-            NotificationManager.error({ message: message, title: title, onClick: callback });
-            break;
-         case 'info':
-            NotificationManager.info({ message: message, title: title, onClick: callback });
-            break;
-         case 'warning':
-            NotificationManager.warning({ message: message, title: title, onClick: callback });
-            break;
-         default:
-            NotificationManager.info({ message: message, title: title, onClick: callback });
-            break;
-      }
-   }
-
-
-   handleChange = (event) => {
-      this.setState({ 
-         [event.target.name]: event.target.value 
-      })
-   }
-   
-   toggleCheckbox = () => {
-      this.setState({ 
-         accept: !this.state.accept,
-      });
-   }
-
-   checkTerms = () => {
-      if(!this.state.accept){
-         return this.notify('error','You have not accepted user Terms and Conditions','Terms and Conditions')
-      }
-   }
-
-   clearState = () => {
-      this.setState({
-         ...this.state,
-         firstname: '',
-         lastname: '',
-         email: '',
-         mobile: '',
-         accept: '',
-         isloading: false
-      });
-   }
-
-   postUser = (user) => {
-      axios.post('http://apes.com/api/user/create', user)
-      .then((res) => {
-         console.log(res.data);
-         if(res.data.status === 'success'){
-            this.setState({redirect: true, isloading: false})
-         } else if(res.data.status === 'available'){
-            this.setState({ isloading: false })
-            this.notify('error',res.data.message,'Account Unavailable')
-         } else {
-            this.setState({ isloading: false })
-            this.notify('error',res.data.message,'System Error')
-         }
-      });
-   }
-
-   userSignup = (event) => {
-
-      event.preventDefault();
-
-      const token = uid(16);
-      const user = {
-         token: token,
-         firstname: this.state.firstname,
-         lastname: this.state.lastname,
-         email: this.state.email,
-         mobile: this.state.mobile,
-         accept: (this.state.accept) ? 1 : 0
-      }
-
-      console.log(user);
-      
-
-      if(!this.state.accept){
-         this.checkTerms();
-      } else {
-         
-         if(this.state.email === ''){
-            this.notify('warning', 'Email address is required', 'User Error')
-            this.setState({ redirect: false, isloading: false });
-
-         } else if (this.state.mobile === '') {
-            this.notify("warning", "Mobile number is required", "User Error");
-            this.setState({ redirect: false, isloading: false });
-         } else {
-            this.postUser(user);
-         }
-      }
-   }
-
+class SigninForm extends Component {
    render() {
-      const { redirect, isloading } = this.state;
-      if (redirect) {
-         return <Redirect to='/user/confirm' />;
-      }
       return (
-         <React.Fragment>
-            <NotificationContainer />
-            <Loader fullPage loading={ isloading } />
-            <div className="form-wrapper">
-               <form onSubmit={ this.userSignup } autoComplete="off" method="post">
-                  <div className="form-group">
-                     <input
-                        className="form-control"
-                        type="text"
-                        placeholder="First Name"
-                        name="firstname" onChange={ this.handleChange }
-                        value={ this.state.firstname }
-                     />
-                  </div>
-                  <div className="form-group">
-                     <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Last Name"
-                        name="lastname" onChange={ this.handleChange }
-                        value={ this.state.lastname }
-                     />
-                  </div>
-                  <div className="form-group">
-                     <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Email address"
-                        name="email" onChange={this.handleChange}
-                        value={ this.state.email }
-                     />
-                  </div>
-                  <div className="form-group">
-                     <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Mobile Number"
-                        name="mobile" onChange={this.handleChange}
-                        value={ this.state.mobile }
-                     />
-                  </div>
-                  <div className="form-group">
-                     <div className="checkbox">
-                        <label>
-                           <input 
-                              type="checkbox" 
-                              name="accept" 
-                              checked={this.state.accept} 
-                              onChange={this.toggleCheckbox } />
-                              <span>You accept User Terms and Conditions.</span>
-                        </label>
+         <div>
+            <form className="js-validate form-signin p-5" autoComplete="off">
+               <div className="text-center">
+                  <Link to="/" aria-label="Space">
+                     <img className="mb-0" src={ logo } alt="Logo" width="160" height="160" />
+                  </Link>
+               </div>
+
+               <div className="text-center mb-4">
+                  <p>Fill out the form to get started.</p>
+               </div>
+
+               <div className="js-form-message mb-3">
+                  <div className="js-focus-state input-group form">
+                     <div className="input-group-prepend form__prepend">
+                        <span className="input-group-text form__text">
+                           <span className="fa fa-user form__text-inner"></span>
+                        </span>
                      </div>
+                     <input type="text" className="form-control form__input" name="email" required
+                        placeholder="Your Name"
+                        aria-label="Name"
+                        data-msg="Please enter a valid email address."
+                        data-error-class="u-has-error"
+                        data-success-class="u-has-success"  />
                   </div>
-                  <div className="form-group text-center">
-                     <button className="btn btn-primary btn-lg btn-block btn-signin"> Create Account</button>
+               </div>
+
+               <div className="js-form-message mb-3">
+                  <div className="js-focus-state input-group form">
+                     <div className="input-group-prepend form__prepend">
+                        <span className="input-group-text form__text">
+                           <span className="fa fa-at form__text-inner"></span>
+                        </span>
+                     </div>
+                     <input type="email" className="form-control form__input" name="password" required
+                        placeholder="Email address"
+                        aria-label="email"
+                        data-msg="Please enter a valid email address."
+                        data-error-class="u-has-error"
+                        data-success-class="u-has-success" />
                   </div>
-               </form>
-            </div>
-         </React.Fragment>
+               </div>
+
+               <div className="js-form-message mb-3">
+                  <div className="js-focus-state input-group form">
+                     <div className="input-group-prepend form__prepend">
+                        <span className="input-group-text form__text">
+                           <span className="fa fa-phone form__text-inner"></span>
+                        </span>
+                     </div>
+                     <input type="text" className="form-control form__input" name="mobile" required
+                        placeholder="Mobile Number"
+                        aria-label="mobile"
+                        data-msg="Please enter a valid mobile number."
+                        data-error-class="u-has-error"
+                        data-success-class="u-has-success" />
+                  </div>
+               </div>
+
+               <div className="js-form-message mb-3">
+                  <div className="js-focus-state input-group form">
+                     <div className="input-group-prepend form__prepend">
+                        <span className="input-group-text form__text">
+                           <span className="fa fa-lock form__text-inner"></span>
+                        </span>
+                     </div>
+                     <input type="password" className="form-control form__input" name="password" required
+                        placeholder="Password"
+                        aria-label="Password"
+                        data-msg="Your password is invalid. Please try again."
+                        data-error-class="u-has-error"
+                        data-success-class="u-has-success" />
+                  </div>
+               </div>
+
+               
+
+               <div className="mb-3">
+                  <button type="submit" className="btn btn-block btn-primary">Signup</button>
+               </div>
+
+               <div className="text-center mb-3">
+                  <p className="text-muted">Do not have an account? <Link to="/user/signin">Signin</Link></p>
+               </div>
+
+               <div className="text-center u-divider-wrapper my-3">
+                  <span className="u-divider u-divider--xs u-divider--text">OR</span>
+               </div>
+
+               <div className="row mx-gutters-2 mb-4">
+                  <div className="col-sm-6 mb-2 mb-sm-0">
+                     <button type="button" className="btn btn-block btn-sm btn-facebook">
+                        <span className="fab fa-facebook-f mr-2"></span>Signup with Facebook</button>
+                  </div>
+                  <div className="col-sm-6">
+                     <button type="button" className="btn btn-block btn-sm btn-twitter">
+                        <span className="fab fa-twitter mr-2"></span>Signup with Twitter</button>
+                  </div>
+               </div>
+            </form>
+         </div>
       );
    }
 }
 
-export default SignupForm;
+export default SigninForm;
+const logo = require('../../../assets/imgs/apes-logo.svg')

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import LoadingScreen from 'react-loading-screen';
 import './UploadFile.scss';
+import Navbar from '../../common/Navbar/Navbar';
 
 
 class UploadFile extends Component {
@@ -48,7 +49,7 @@ class UploadFile extends Component {
             logoSrc='../../../assets/imgs/apes-logo.svg'
             text='Importing Data ...'
          >
-
+            <Navbar/>
             <div className="container push-down">
                <div className="row">
                   <div className="col-md-6 offset-md-3">
@@ -75,7 +76,7 @@ class UploadFile extends Component {
                               <div className="form-group">
                                  <button 
                                     className="btn btn-primary btn-lg btn-upload" 
-                                    onClick={this.fileUploadHandler}>Upload File
+                                    onClick={this.fileUploadHandler}> Upload File
                                  </button>
                               </div>
                            </div>

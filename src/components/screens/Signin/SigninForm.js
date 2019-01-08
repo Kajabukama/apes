@@ -13,7 +13,6 @@ class SigninForm extends Component {
                </div>
 
                <div className="text-center mb-4">
-                  <h1 className="h3 mb-0">Please sign in</h1>
                   <p>Signin to manage your account.</p>
                </div>
 
@@ -25,7 +24,7 @@ class SigninForm extends Component {
                         </span>
                      </div>
                      <input type="email" className="form-control form__input" name="email" required
-                        placeholder="Email"
+                        placeholder="Email address/Mobile Number"
                         aria-label="Email"
                         data-msg="Please enter a valid email address."
                         data-error-class="u-has-error"
@@ -67,7 +66,7 @@ class SigninForm extends Component {
                </div>
 
                <div className="text-center mb-3">
-                  <p className="text-muted">Do not have an account? <Link to="/">Signup</Link></p>
+                  <p className="text-muted">Have an account? <Link to="/user/signup">Signup</Link></p>
                </div>
 
                <div className="text-center u-divider-wrapper my-3">
