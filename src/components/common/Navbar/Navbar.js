@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import './Navbar.css';
 
 class Navbar extends Component {
+   state = {
+      redirect: false
+   }
 
+   logout = () => {
+      if(localStorage.getItem('user') === null){
+         localStorage.clear()
+      }
+   }
+
+   componentDidMount(){
+      if(localStorage.getItem('user') === null){
+         this.setState({redirect: true})
+      }
+   }
+   
    render() {
+      const { redirect } = this.state;
+      const user = JSON.parse(localStorage.getItem('user'));
+      if(redirect){
+         return <Redirect to="/user/signin"/>
+      }
       return (
          <header id="header" className="u-header u-header--modern u-header--bordered u-header--sticky-top-lg">
             <div className="u-header__section">
@@ -60,39 +80,45 @@ class Navbar extends Component {
                               <Link id="docsMegaMenu" className="nav-link u-header__nav-link" to="/"
                                  aria-haspopup="true"
                                  aria-expanded="false"
-                                 aria-labelledby="docsSubMenu">Documentation
+                                 aria-labelledby="docsSubMenu">{ user ? user.email : 'Guest User'}
                               </Link>
 
-                              <ul id="docsSubMenu" className="list-inline hs-sub-menu u-header__sub-menu mb-0" style={{ minWidth: '260px' }}
+                              <ul id="docsSubMenu" className="list-inline hs-sub-menu u-header__sub-menu mb-0" style={{ minWidth: '230px' }}
                                  aria-labelledby="docsMegaMenu">
                                  <li className="dropdown-item u-header__sub-menu-list-item py-0">
-                                    <Link className="nav-link d-block u-header__sub-menu-nav-link" to="/">
+                                    <Link className="nav-link d-block u-header__sub-menu-nav-link" to="/user/profile">
                                        <div className="media align-items-center">
                                           <img className="max-width-5 mr-3" src={ news } alt="Description" />
                                           <div className="media-body">
-                                             <span className="d-block text-dark font-weight-medium">Documentation</span>
-                                             <small className="d-block">Apes User guides</small>
+                                             <span className="d-block text-dark font-weight-medium">Account</span>
+                                             <small className="d-block">User Profile</small>
                                           </div>
                                        </div>
                                     </Link>
                                  </li>
                                  <li className="dropdown-item u-header__sub-menu-list-item py-0">
-                                    <Link className="nav-link d-block u-header__sub-menu-nav-link" to="/">
+                                    <Link className="nav-link d-block u-header__sub-menu-nav-link" to="/user/settings">
                                        <div className="media align-items-center">
                                           <img className="max-width-5 mr-3" src={ portifolio } alt="Description" />
                                           <div className="media-body">
-                                             <span className="d-block text-dark font-weight-medium">Get Started</span>
+                                             <span className="d-block text-dark font-weight-medium">Settings</span>
                                              <small className="d-block">For Photographers</small>
                                           </div>
                                        </div>
                                     </Link>
                                  </li>
+                                 <li className="dropdown-item u-header__sub-menu-list-item py-0">
+                                    <Link className="nav-link d-block u-header__sub-menu-nav-link" to="/user/logout">
+                                       <div className="media align-items-center">
+                                          <img className="max-width-5 mr-3" src={ portifolio } alt="Description" />
+                                          <div className="media-body">
+                                             <span className="d-block text-dark font-weight-medium">Signout</span>
+                                             <small className="d-block">Quit Application</small>
+                                          </div>
+                                       </div>
+                                    </Link>
+                                 </li>
                               </ul>
-                           </li>
-
-                           <li className="nav-item u-header__nav-item-btn">
-                              <Link className="btn btn-sm btn-primary btn-block" to="/user/signin">
-                                 <span className="fa fa-user-circle mr-1"></span>Signin</Link>
                            </li>
                         </ul>
                      </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
+import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 import LoadingScreen from 'react-loading-screen';
 import './UploadFile.scss';
 import Navbar from '../../common/Navbar/Navbar';
@@ -10,6 +11,19 @@ class UploadFile extends Component {
    state = {
       selectedFile: null,
       isLoading: false,
+      redirect: false,
+      school: null,
+      user: null,
+   }
+
+   componentDidMount(){
+     if(localStorage.getItem('user') !== null){
+        this.setState({ 
+           redirect: false, 
+           user: JSON.parse(localStorage.getItem('user')),
+           school: JSON.parse(localStorage.getItem('school')) 
+         });
+     }
    }
 
    fileSelectedHandler = event => {
@@ -20,26 +34,37 @@ class UploadFile extends Component {
 
    fileUploadHandler = () => {
 
+      const { user, school } =  this.state;
+
       this.setState({
          isLoading: true
       });
 
       let fd = new FormData();
-      fd.append('uid', 780940);
-      fd.append('sid', 'P90076');
+      fd.append('uid', user.id);
+      fd.append('sid', school.sid);
       fd.append('file', this.state.selectedFile, this.state.selectedFile.name);
 
-      Axios.post('http://apes.com/api/uploads/csv-upload', fd)
+      axios.post('http://apes.com/uploads/csv-upload', fd)
          .then((response) => {
             console.log(response.data.data.status);
             if (response.data.data.status) {
-               this.setState({ isLoading: false })
+               this.setState({ isLoading: false, redirect: true })
             }
          });
    }
 
 
    render() {
+
+      let user = JSON.parse(localStorage.getItem('user'));
+      const { redirect } = this.state;
+
+      console.log(user);
+
+      if(redirect){
+         return <Redirect to="/upload/list-students"/>
+      }
       return (
          <LoadingScreen
             loading={ this.state.isLoading }
@@ -50,7 +75,7 @@ class UploadFile extends Component {
             text='Importing Data ...'
          >
             <Navbar/>
-            <div className="container push-down">
+            <div className="container space-top">
                <div className="row">
                   <div className="col-md-6 offset-md-3">
                      <div className="text-wrapper text-center">

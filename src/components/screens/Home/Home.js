@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import './Home.css';
+import Navbar from '../../common/Navbar/Navbar';
 
 class Home extends Component {
 
    render() {
       return (
-         <div className="container push-down">
+         <div>
+            <Navbar/>
+         <div className="container space-top">
             <div className="row">
                <div className="col-md-6 offset-md-3">
                   <div className="text-wrapper text-center">
@@ -19,6 +22,7 @@ class Home extends Component {
                   </div>
                </div>
             </div>
+         </div>
          </div>
       );
    }
