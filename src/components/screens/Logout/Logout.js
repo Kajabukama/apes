@@ -8,7 +8,7 @@ class Logout extends Component {
    }
 
    componentWillMount(){
-      if(localStorage.getItem('user') !== null){
+      if(localStorage.getItem('user') !== null ){
          localStorage.clear();
          this.setState({redirect: true})
       }

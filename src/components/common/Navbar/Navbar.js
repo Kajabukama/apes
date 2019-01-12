@@ -56,7 +56,7 @@ class Navbar extends Component {
                               data-event="hover"
                               data-animation-in="fadeInUp"
                               data-animation-out="fadeOut">
-                              <Link id="homeMegaMenu" className="nav-link u-header__nav-link" to="/"
+                              <Link id="homeMegaMenu" className="nav-link u-header__nav-link" to="/user/dashboard"
                                  aria-haspopup="true"
                                  aria-expanded="false"
                                  aria-labelledby="homeSubMenu">Dashboard
@@ -77,7 +77,7 @@ class Navbar extends Component {
                               data-event="hover"
                               data-animation-in="fadeInUp"
                               data-animation-out="fadeOut">
-                              <Link id="docsMegaMenu" className="nav-link u-header__nav-link" to="/"
+                              <Link id="docsMegaMenu" className="nav-link u-header__nav-link" to="/user/profile"
                                  aria-haspopup="true"
                                  aria-expanded="false"
                                  aria-labelledby="docsSubMenu">{ user ? user.email : 'Guest User'}

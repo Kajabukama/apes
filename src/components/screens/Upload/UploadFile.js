@@ -40,12 +40,12 @@ class UploadFile extends Component {
          isLoading: true
       });
 
-      let fd = new FormData();
-      fd.append('uid', user.id);
-      fd.append('sid', school.sid);
-      fd.append('file', this.state.selectedFile, this.state.selectedFile.name);
+      let formData = new FormData();
+      formData.append('uid', user.id);
+      formData.append('sid', school.sid);
+      formData.append('file', this.state.selectedFile, this.state.selectedFile.name);
 
-      axios.post('http://apes.com/uploads/csv-upload', fd)
+      axios.post('http://apes.com/uploads/csv-upload', formData)
          .then((response) => {
             console.log(response.data.data.status);
             if (response.data.data.status) {
@@ -53,7 +53,6 @@ class UploadFile extends Component {
             }
          });
    }
-
 
    render() {
 

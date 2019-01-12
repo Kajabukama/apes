@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import Navbar from '../../common/Navbar/Navbar';
 
 class Dashboard extends Component {
 
@@ -22,7 +21,6 @@ class Dashboard extends Component {
       }
       return(
          <div>
-            <Navbar/>
             <div className="container space-top">
                <div className="row">
                   <div className="col-md-12 m-auto">

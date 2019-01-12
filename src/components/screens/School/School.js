@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 
 class AddSchool extends Component {
@@ -93,15 +93,11 @@ class AddSchool extends Component {
       // }
 
       return (
-         <div className="container">
+         <div className="container space-top">
             <div className="row">
                <div className="col-md-5 m-auto">
                   <form className="js-validate form-signin p-5" autoComplete="off" onSubmit={this.handleSubmit}>
-                     <div className="text-center">
-                        <Link to="/" aria-label="Space">
-                           <img className="mb-0" src={logo} alt="Logo" width="160" height="160" />
-                        </Link>
-                     </div>
+                     
 
                      <div className="text-center">
                         <p>Select a School you would like to create a Photo entry for.</p>
@@ -196,4 +192,3 @@ class AddSchool extends Component {
 }
 
 export default AddSchool;
-const logo = require('../../../assets/imgs/apes-logo.svg')

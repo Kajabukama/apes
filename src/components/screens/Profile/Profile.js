@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import Navbar from '../../common/Navbar/Navbar';
 
 class Profile extends Component {
 
@@ -25,7 +24,6 @@ class Profile extends Component {
 
       return(
          <div>
-            <Navbar/>
             <div className="container space-top">
                <div className="row">
                   <div className="col-md-12 m-auto">
