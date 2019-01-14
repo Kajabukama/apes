@@ -2,6 +2,21 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
 
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
+import AccountCircle from '@material-ui/icons/AccountCircleSharp';
+import Visibility from '@material-ui/icons/VisibilitySharp';
+import Mail from '@material-ui/icons/MailSharp';
+import PhoneAndroid from '@material-ui/icons/PhoneAndroidSharp';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+import FormGroup from '@material-ui/core/FormGroup';
+
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const suid = require('rand-token').suid;
 var tokenGenerated = suid(16);
@@ -9,7 +24,7 @@ class Signup extends Component {
 
    state = {
       redirect: false,
-      islogged: false,
+      islogged: true,
       isloading: false,
       token: tokenGenerated,
       firstname: '',
@@ -20,9 +35,9 @@ class Signup extends Component {
    }
 
    componentDidMount(){
-      if(localStorage.getItem('user') !== null){
+      if(localStorage.getItem('user') === null){
          this.setState({
-            islogged: true
+            islogged: false
          })
       }
    }
@@ -54,13 +69,9 @@ class Signup extends Component {
    }
 
    render() {
-      const { redirect, islogged } = this.state;
+      const { redirect } = this.state;
       if(redirect){
          return <Redirect to="/user/signin"/>
-      }
-
-      if(islogged){
-         return <Redirect to="/user/dashboard"/>
       }
 
       return (
@@ -68,9 +79,9 @@ class Signup extends Component {
             <div className="row">
                <div className="col-md-5 m-auto">
                   <form className="js-validate form-signin p-5" autoComplete="off" onSubmit={ this.handleRegister }>
-                     <div className="text-center">
+                     <div className="text-center mb-5">
                         <Link to="/" aria-label="Space">
-                           <img className="mb-0" src={ logo } alt="Logo" width="160" height="160" />
+                           <img className="mb-0" src={ logo } alt="Logo" width="160" />
                         </Link>
                      </div>
 
@@ -78,84 +89,117 @@ class Signup extends Component {
                         <p>Fill out the form to get started.</p>
                      </div>
 
-                     <div className="js-form-message mb-3">
-                        <div className="js-focus-state input-group form">
-                           <div className="input-group-prepend form__prepend">
-                              <span className="input-group-text form__text">
-                                 <span className="fa fa-user form__text-inner"></span>
-                              </span>
-                           </div>
-                           <input type="text" className="form-control form__input" name="firstname" required
-                              placeholder="First Name"
-                              aria-label="Name"
-                              data-msg="Please enter Your first name."
-                              data-error-class="u-has-error"
-                              data-success-class="u-has-success" onChange={ this.handleChange } />
-                        </div>
+                     <div className="js-form-message">
+
+                        <FormControl fullWidth>
+                           <TextField
+                              id="firstname"
+                              InputProps={{
+                                 startAdornment: (
+                                    <InputAdornment position="start"> 
+                                       <AccountCircle color="secondary" /> 
+                                    </InputAdornment>
+                                 ),
+                              }}
+                              label="Firstname" placeholder="Your Firstname"
+                              type="text"
+                              name="firstname"
+                              autoComplete="off"
+                              margin="normal" 
+                              variant="outlined"
+                              onChange={ this.handleChange }
+                           />
+                        </FormControl>
                      </div>
 
-                     <div className="js-form-message mb-3">
-                        <div className="js-focus-state input-group form">
-                           <div className="input-group-prepend form__prepend">
-                              <span className="input-group-text form__text">
-                                 <span className="fa fa-user form__text-inner"></span>
-                              </span>
-                           </div>
-                           <input type="text" className="form-control form__input" name="lastname" required
-                              placeholder="Last Name"
-                              aria-label="Name"
-                              data-msg="Please enter Your last name"
-                              data-error-class="u-has-error"
-                              data-success-class="u-has-success" onChange={ this.handleChange } />
-                        </div>
+                     <div className="js-form-message">
+                        
+                        <FormControl fullWidth>
+                           <TextField
+                              id="lastname"
+                              InputProps={{
+                                 startAdornment: (
+                                    <InputAdornment position="start"> 
+                                       <AccountCircle color="secondary" /> 
+                                    </InputAdornment>
+                                 ),
+                              }}
+                              label="Lastname" placeholder="Your Lastname"
+                              type="text"
+                              name="lastname"
+                              autoComplete="off"
+                              margin="normal" 
+                              variant="outlined"
+                              onChange={ this.handleChange }
+                           />
+                        </FormControl>
+                        
                      </div>
 
-                     <div className="js-form-message mb-3">
-                        <div className="js-focus-state input-group form">
-                           <div className="input-group-prepend form__prepend">
-                              <span className="input-group-text form__text">
-                                 <span className="fa fa-at form__text-inner"></span>
-                              </span>
-                           </div>
-                           <input type="email" className="form-control form__input" name="email" required
-                              placeholder="Email address"
-                              aria-label="email"
-                              data-msg="Please enter a valid email address."
-                              data-error-class="u-has-error"
-                              data-success-class="u-has-success" onChange={ this.handleChange } />
-                        </div>
+                     <div className="js-form-message">
+                        <FormControl fullWidth>
+                           <TextField
+                              id="email"
+                              InputProps={{
+                                 startAdornment: (
+                                    <InputAdornment position="start"> 
+                                       <Mail color="secondary" /> 
+                                    </InputAdornment>
+                                 ),
+                              }}
+                              label="Email address" placeholder="Email Address"
+                              type="email"
+                              name="email"
+                              autoComplete="off"
+                              margin="normal" 
+                              variant="outlined"
+                              onChange={ this.handleChange }
+                           />
+                        </FormControl>
                      </div>
 
-                     <div className="js-form-message mb-3">
-                        <div className="js-focus-state input-group form">
-                           <div className="input-group-prepend form__prepend">
-                              <span className="input-group-text form__text">
-                                 <span className="fa fa-phone form__text-inner"></span>
-                              </span>
-                           </div>
-                           <input type="text" className="form-control form__input" name="mobile" required
-                              placeholder="Mobile Number"
-                              aria-label="mobile"
-                              data-msg="Please enter a valid mobile number."
-                              data-error-class="u-has-error"
-                              data-success-class="u-has-success" onChange={ this.handleChange } />
-                        </div>
+                     <div className="js-form-message">
+                        <FormControl fullWidth>
+                           <TextField
+                              id="mobile"
+                              InputProps={{
+                                 startAdornment: (
+                                    <InputAdornment position="start"> 
+                                       <PhoneAndroid color="secondary" /> 
+                                    </InputAdornment>
+                                 ),
+                              }}
+                              label="Mobile Number" placeholder="Your Mobile Number"
+                              type="text"
+                              name="mobile"
+                              autoComplete="off"
+                              margin="normal" 
+                              variant="outlined"
+                              onChange={ this.handleChange }
+                           />
+                        </FormControl>
                      </div>
 
-                     <div className="js-form-message mb-3">
-                        <div className="js-focus-state input-group form">
-                           <div className="input-group-prepend form__prepend">
-                              <span className="input-group-text form__text">
-                                 <span className="fa fa-lock form__text-inner"></span>
-                              </span>
-                           </div>
-                           <input type="password" className="form-control form__input" name="password" required
-                              placeholder="Password"
-                              aria-label="Password"
-                              data-msg="Your password is invalid. Please try again."
-                              data-error-class="u-has-error"
-                              data-success-class="u-has-success" onChange={ this.handleChange } />
-                        </div>
+                     <div className="js-form-message mb-5">
+                        <FormControl fullWidth>
+                           <TextField
+                              id="password"
+                              InputProps={{
+                                 startAdornment: (
+                                    <InputAdornment position="start"> 
+                                       <Visibility color="secondary" /> 
+                                    </InputAdornment>
+                                 ),
+                              }}
+                              label="Password" placeholder="Your Password"
+                              type="password"
+                              name="password"
+                              autoComplete="off"
+                              margin="normal" 
+                              variant="outlined"
+                              onChange={ this.handleChange }
+                           />
+                        </FormControl>
                      </div>
                      
                      <div className="mb-3">
@@ -166,20 +210,6 @@ class Signup extends Component {
                         <p className="text-muted">Do not have an account? <Link to="/user/signin">Signin</Link></p>
                      </div>
 
-                     <div className="text-center u-divider-wrapper my-3">
-                        <span className="u-divider u-divider--xs u-divider--text">OR</span>
-                     </div>
-
-                     <div className="row mx-gutters-2 mb-4">
-                        <div className="col-sm-6 mb-2 mb-sm-0">
-                           <button type="button" className="btn btn-block btn-sm btn-facebook">
-                              <span className="fab fa-facebook-f mr-2"></span>Signup with Facebook</button>
-                        </div>
-                        <div className="col-sm-6">
-                           <button type="button" className="btn btn-block btn-sm btn-twitter">
-                              <span className="fab fa-twitter mr-2"></span>Signup with Twitter</button>
-                        </div>
-                     </div>
                   </form>
                </div>
             </div>

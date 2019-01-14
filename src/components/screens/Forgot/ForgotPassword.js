@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
+import Mail from '@material-ui/icons/Mail';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+
 class ForgotPassword extends Component {
    render() {
       return (
@@ -8,9 +14,9 @@ class ForgotPassword extends Component {
             <div className="row">
                <div className="col-md-5 m-auto">
                   <form className="js-validate form-signin p-5" autoComplete="off">
-                     <div className="text-center">
+                     <div className="text-center mb-5">
                         <Link to="/" aria-label="Space">
-                           <img className="mb-0" src={logo} alt="Logo" width="160" height="160" />
+                           <img className="mb-0" src={logo} alt="Logo" width="160" />
                         </Link>
                      </div>
 
@@ -19,19 +25,25 @@ class ForgotPassword extends Component {
                      </div>
 
                      <div className="js-form-message mb-3">
-                        <div className="js-focus-state input-group form">
-                           <div className="input-group-prepend form__prepend">
-                              <span className="input-group-text form__text">
-                                 <span className="fa fa-user form__text-inner"></span>
-                              </span>
-                           </div>
-                           <input type="email" className="form-control form__input" name="email" required
-                              placeholder="Email address/Mobile Number"
-                              aria-label="Email"
-                              data-msg="Please enter a valid email address."
-                              data-error-class="u-has-error"
-                              data-success-class="u-has-success" />
-                        </div>
+                        <FormControl fullWidth>
+                           <TextField
+                              id="email"
+                              InputProps={{
+                                 startAdornment: (
+                                    <InputAdornment position="start"> 
+                                       <Mail color="secondary" />
+                                    </InputAdornment>
+                                 ),
+                              }}
+                              label="Email address" placeholder="Email address/Mobile"
+                              type="email"
+                              name="email"
+                              autoComplete="off"
+                              margin="normal" 
+                              variant="outlined"
+                              onChange={ this.handleChange }
+                           />
+                        </FormControl>
                      </div>
                      <div className="mb-3">
                         <button type="submit" className="btn btn-block btn-danger">Recover Password</button>

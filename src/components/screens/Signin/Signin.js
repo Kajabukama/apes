@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import AccountCircle from '@material-ui/icons/AccountCircleSharp';
+import Lock from '@material-ui/icons/LockSharp';
 import Mail from '@material-ui/icons/Mail';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
@@ -18,15 +18,8 @@ import Switch from '@material-ui/core/Switch';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import styles from '../../../theme';
 
-
-import './Signin.css';
-
-const styles = theme => ({
-   margin: {
-     margin: theme.spacing.unit,
-   },
- });
 class Signin extends Component {
 
    state = {
@@ -34,14 +27,15 @@ class Signin extends Component {
       username: '',
       password: '',
       redirect: false,
+      isLogged: true,
       remember: false,
       open: false,
       message: ''
    }
 
    componentDidMount(){
-      if(localStorage.getItem('user') !== null){
-         this.setState({redirect: true})
+      if(localStorage.getItem('user') === null){
+         this.setState({isLogged: false})
       }
    }
 
@@ -94,12 +88,9 @@ class Signin extends Component {
 
    render() {
 
-      const { redirect } = this.state;
       const { classes } = this.props; 
 
-      if(redirect){
-         return <Redirect to="/user/dashboard"/>
-      }
+      
       return (
          <React.Fragment>
             <Snackbar
@@ -121,9 +112,9 @@ class Signin extends Component {
             <div className="row">
                <div className="col-md-5 m-auto">
                   <form className="js-validate form-signin p-5" autoComplete="off" onSubmit={ this.handleSubmit}>
-                     <div className="text-center">
+                     <div className="text-center mb-5">
                         <Link to="/" aria-label="Space">
-                           <img className="mb-0" src={logo} alt="Logo" width="160" height="160" />
+                           <img className="mb-0" src={logo} alt="Logo" width="160" />
                         </Link>
                      </div>
 
@@ -138,7 +129,7 @@ class Signin extends Component {
                               InputProps={{
                                  startAdornment: (
                                     <InputAdornment position="start"> 
-                                       <Mail />
+                                       <Mail color="secondary" />
                                     </InputAdornment>
                                  ),
                               }}
@@ -160,7 +151,7 @@ class Signin extends Component {
                               InputProps={{
                                  startAdornment: (
                                     <InputAdornment position="start">
-                                       <AccountCircle />
+                                       <Lock color="secondary" />
                                     </InputAdornment>
                                  ),
                               }}

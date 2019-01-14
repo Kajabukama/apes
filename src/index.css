@@ -1,5 +1,62 @@
+@font-face {
+	font-family: Graphik-Regular;
+	src: url(./assets/fonts/Graphik/Graphik-Regular-Web.eot);
+	src: url(./assets/fonts/Graphik/Graphik-Regular-Webd41d.eot?#iefix) format("embedded-opentype"), url(./assets/fonts/Graphik/Graphik-Regular-Web.woff2) format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal
+}
+
+@font-face {
+	font-family: Graphik-Medium;
+	src: url(./assets/fonts/Graphik/Graphik-Medium-Web.eot);
+	src: url(./assets/fonts/Graphik/Graphik-Medium-Webd41d.eot?#iefix) format("embedded-opentype"), url(./assets/fonts/Graphik/Graphik-Medium-Web.woff2) format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-stretch: normal
+}
+
+@font-face {
+	font-family: SangBleuSans-Light;
+	src: url(/assets/fonts/SangBleuSans/SangBleuSans-Light-WebS.eot);
+	src: url(/assets/fonts/SangBleuSans/SangBleuSans-Light-WebSd41d.eot?#iefix) format("embedded-opentype"), url(/assets/fonts/SangBleuSans/SangBleuSans-Light-WebS.woff2) format("woff2"), url(/assets/fonts/SangBleuSans/SangBleuSans-Light-WebS.woff) format("woff"), url(/assets/fonts/SangBleuSans/SangBleuSans-Light-WebS.ttf) format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal
+}
+
+
+
+@font-face {
+	font-family: Eina;
+	src: url(./assets/fonts/eina/eina-03-regular.eot);
+	src: url(./assets/fonts/eina/eina-03-regular.eot?#efix) format("embedded-opentype"), url(./assets/fonts/eina/eina-03-regular.woff2) format("woff2"), url(./assets/fonts/eina/eina-03-regular.woff) format("woff"), url(./assets/fonts/eina/eina-03-regular.ttf) format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal
+}
+
+@font-face {
+	font-family: Eina;
+	src: url(./assets/fonts/eina/eina-03-semibold.eot);
+	src: url(./assets/fonts/eina/eina-03-semibold.eot?#efix) format("embedded-opentype"), url(./assets/fonts/eina/eina-03-semibold.woff2) format("woff2"), url(./assets/fonts/eina/eina-03-semibold.woff) format("woff"), url(./assets/fonts/eina/eina-03-semibold.ttf) format("truetype");
+	font-weight: 500;
+	font-style: normal;
+	font-stretch: normal
+}
+
+@font-face {
+	font-family: Eina;
+	src: url(./assets/fonts/eina/eina-03-bold.eot);
+	src: url(./assets/fonts/eina/eina-03-bold.eot?#efix) format("embedded-opentype"), url(./assets/fonts/eina/eina-03-bold.woff2) format("woff2"), url(./assets/fonts/eina/eina-03-bold.woff) format("woff"), url(./assets/fonts/eina/eina-03-bold.ttf) format("truetype");
+	font-weight: 600;
+	font-style: normal;
+	font-stretch: normal
+}
+
+
 body{
-   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+   font-family: "Graphik-Regular" !important;
 }
 .space-top{
    padding-top: 100px;

@@ -7,7 +7,7 @@ class Footer extends Component {
    
    render(){
       return(
-         <div className="container fixed-bottom">
+         <div className="container sticky">
             <div className="row">
                <div className="col-md-6 offset-md-3">
                   <div className="text-wrapper text-center">

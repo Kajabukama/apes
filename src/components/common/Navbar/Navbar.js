@@ -8,11 +8,6 @@ class Navbar extends Component {
       redirect: false
    }
 
-   logout = () => {
-      if(localStorage.getItem('user') === null){
-         localStorage.clear()
-      }
-   }
 
    componentDidMount(){
       if(localStorage.getItem('user') === null){
@@ -23,9 +18,11 @@ class Navbar extends Component {
    render() {
       const { redirect } = this.state;
       const user = JSON.parse(localStorage.getItem('user'));
+
       if(redirect){
          return <Redirect to="/user/signin"/>
       }
+      
       return (
          <header id="header" className="u-header u-header--modern u-header--bordered u-header--sticky-top-lg">
             <div className="u-header__section">
