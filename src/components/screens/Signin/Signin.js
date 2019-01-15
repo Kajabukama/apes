@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
+import { FormValidation } from "calidation";
 
 import { Link, Redirect } from 'react-router-dom';
 
@@ -20,6 +21,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import styles from '../../../theme';
 
+import config from './Config';
+
 class Signin extends Component {
 
    state = {
@@ -33,42 +36,48 @@ class Signin extends Component {
       message: ''
    }
 
-   componentDidMount(){
-      if(localStorage.getItem('user') === null){
-         this.setState({isLogged: false})
+   componentDidMount() {
+      if (localStorage.getItem('user') === null) {
+         this.setState({ isLogged: false })
       }
    }
 
    handleChange = event => {
       this.setState({
-         [event.target.name] : event.target.value
+         [event.target.name]: event.target.value
       })
    }
 
-   handleSubmit = event =>{
+   handleSubmit = event => {
       const { username, password } = this.state;
       let user = { username, password }
       this.signin(user);
       event.preventDefault();
    }
 
-   signin = user => {
-      axios.post('http://apes.com/user/authenticate', user)
-      .then(res => {
-         console.log(res.data.user);
-         if(res.data.status === true){
-            this.setState({message: res.data.message});
 
-            localStorage.setItem('user', JSON.stringify(res.data.user))
-            this.setState({redirect: true})
-            this.openDialog();
 
-         } else {
-            this.setState({message: res.data.message});
-            this.openDialog();
-         }
-      })
-      .catch(error => console.log(error))
+   onSubmit = ({fields, errors,isValid}) => {
+      if(isValid){
+         axios.post('http://apes.com/user/authenticate', fields)
+         .then(res => {
+            console.log(res.data.user);
+            if (res.data.status === true) {
+               this.setState({ message: res.data.message });
+
+               localStorage.setItem('user', JSON.stringify(res.data.user))
+               this.setState({ redirect: true })
+               this.openDialog();
+
+            } else {
+               this.setState({ message: res.data.message });
+               this.openDialog();
+            }
+         })
+         .catch(error => console.log(error))
+      } else {
+         console.log('Something went wrong :', errors)
+      }
    }
 
    handleRememberChange = remember => event => {
@@ -78,7 +87,7 @@ class Signin extends Component {
    openDialog = () => {
       this.setState({ open: true });
    };
-  
+
    closeDialog = (event, reason) => {
       if (reason === 'clickaway') {
          return;
@@ -88,9 +97,13 @@ class Signin extends Component {
 
    render() {
 
-      const { classes } = this.props; 
+      const { classes } = this.props;
+      const { redirect } = this.state;
 
-      
+      if(redirect){
+         return <Redirect to="/user/dashboard"/>
+      }
+
       return (
          <React.Fragment>
             <Snackbar
@@ -99,120 +112,128 @@ class Signin extends Component {
                autoHideDuration={6000}
                onClose={this.closeDialog}
                ContentProps={{ 'aria-describedby': 'message-id', }}
-               message={<span id="message-id">{ this.state.message }</span>}
+               message={<span id="message-id">{this.state.message}</span>}
                action={[
-                  <IconButton  key="close" aria-label="Close" color="inherit" className={classes.close}
+                  <IconButton key="close" aria-label="Close" color="inherit" className={classes.close}
                      onClick={this.closeDialog}
                   >
-                  <CloseIcon />
+                     <CloseIcon />
                   </IconButton>,
                ]}
             />
-         <div className="container">
-            <div className="row">
-               <div className="col-md-5 m-auto">
-                  <form className="js-validate form-signin p-5" autoComplete="off" onSubmit={ this.handleSubmit}>
-                     <div className="text-center mb-5">
-                        <Link to="/" aria-label="Space">
-                           <img className="mb-0" src={logo} alt="Logo" width="160" />
-                        </Link>
-                     </div>
-
-                     <div className="text-center">
-                        <p>Signin to manage your account.</p>
-                     </div>
-
-                     <div className="js-form-message ">
-                        <FormControl fullWidth>
-                           <TextField
-                              id="username"
-                              InputProps={{
-                                 startAdornment: (
-                                    <InputAdornment position="start"> 
-                                       <Mail color="secondary" />
-                                    </InputAdornment>
-                                 ),
-                              }}
-                              label="Email address" placeholder="Email address/Mobile"
-                              type="text"
-                              name="username"
-                              autoComplete="off"
-                              margin="normal" 
-                              variant="outlined"
-                              onChange={ this.handleChange }
-                           />
-                        </FormControl>
-                     </div>
-
-                     <div className="js-form-message">
-                        <FormControl fullWidth>
-                           <TextField
-                              id="password"
-                              InputProps={{
-                                 startAdornment: (
-                                    <InputAdornment position="start">
-                                       <Lock color="secondary" />
-                                    </InputAdornment>
-                                 ),
-                              }}
-                              label="Password" placeholder="Password"
-                              type="password"
-                              name="password"
-                              autoComplete="off"
-                              margin="normal" 
-                              variant="outlined"
-                              onChange={ this.handleChange }
-                           />
-                        </FormControl>
-                     </div>
-
-                     <div className="row">
-                        <div className="col-6">
-                           <FormGroup row>
-                           <FormControlLabel
-                              control={
-                                 <Switch name="remember"
-                                    checked={this.state.remember}
-                                    onChange={this.handleRememberChange('remember')}
-                                    value="remember"
-                                 />
-                              }
-                              label="Remember Me"
-                           />
-                           </FormGroup>
+            <div className="container">
+               <div className="row">
+                  <div className="col-md-5 m-auto">
+                     <div>
+                        <div className="text-center mb-5">
+                           <Link to="/" aria-label="Space">
+                              <img className="mb-0" src={logo} alt="Logo" width="160" />
+                           </Link>
                         </div>
 
-                        <div className="col-6 text-right">
-                           <Link className="float-right" to="/user/forgot-password">Forgot Password?</Link>
+                        <div className="text-center">
+                           <p>Signin to manage your account.</p>
+                        </div>
+
+                        <FormValidation onSubmit={this.onSubmit} config={config} >
+                           {
+                              ({ fields, erros, submitted }) => (
+                                 <Fragment>
+                                    <div className="js-form-message ">
+                                       <FormControl fullWidth>
+                                          <TextField
+                                             id="username"
+                                             InputProps={{
+                                                startAdornment: (
+                                                   <InputAdornment position="start">
+                                                      <Mail color="secondary" />
+                                                   </InputAdornment>
+                                                ),
+                                             }}
+                                             label="Email address" placeholder="Email address/Mobile"
+                                             type="text"
+                                             name="username"
+                                             autoComplete="off"
+                                             margin="normal"
+                                             variant="outlined"
+                                             onChange={this.handleChange}
+                                          />
+                                       </FormControl>
+                                    </div>
+
+                                    <div className="js-form-message">
+                                       <FormControl fullWidth>
+                                          <TextField
+                                             id="password"
+                                             InputProps={{
+                                                startAdornment: (
+                                                   <InputAdornment position="start">
+                                                      <Lock color="secondary" />
+                                                   </InputAdornment>
+                                                ),
+                                             }}
+                                             label="Password" placeholder="Password"
+                                             type="password"
+                                             name="password"
+                                             autoComplete="off"
+                                             margin="normal"
+                                             variant="outlined"
+                                             onChange={this.handleChange}
+                                          />
+                                       </FormControl>
+                                    </div>
+
+                                    <div className="row">
+                                       <div className="col-6">
+                                          <FormGroup row>
+                                             <FormControlLabel
+                                                control={
+                                                   <Switch name="remember"
+                                                      checked={this.state.remember}
+                                                      onChange={this.handleRememberChange('remember')}
+                                                      value="remember"
+                                                   />
+                                                }
+                                                label="Remember Me"
+                                             />
+                                          </FormGroup>
+                                       </div>
+
+                                       <div className="col-6 text-right">
+                                          <Link className="float-right" to="/user/forgot-password">Forgot Password?</Link>
+                                       </div>
+                                    </div>
+
+                                    <div className="mb-3">
+                                       <button type="submit" className="btn btn-block btn-primary">Signin</button>
+                                    </div>
+                                 </Fragment>
+                              )
+                           }
+                        </FormValidation>
+
+                        <div className="text-center mb-3">
+                           <p className="text-muted">Have an account? <Link to="/user/signup">Signup</Link></p>
+                        </div>
+
+                        <div className="text-center u-divider-wrapper my-3">
+                           <span className="u-divider u-divider--xs u-divider--text">OR</span>
+                        </div>
+
+                        <div className="row mx-gutters-2 mb-4">
+                           <div className="col-sm-6 mb-2 mb-sm-0">
+                              <button type="button" className="btn btn-block btn-sm btn-facebook">
+                                 <span className="fab fa-facebook-f mr-2"></span>Signin with Facebook</button>
+                           </div>
+                           <div className="col-sm-6">
+                              <button type="button" className="btn btn-block btn-sm btn-twitter">
+                                 <span className="fab fa-twitter mr-2"></span>Signin with Twitter</button>
+                           </div>
                         </div>
                      </div>
-
-                     <div className="mb-3">
-                        <button type="submit" className="btn btn-block btn-primary">Signin</button>
-                     </div>
-
-                     <div className="text-center mb-3">
-                        <p className="text-muted">Have an account? <Link to="/user/signup">Signup</Link></p>
-                     </div>
-
-                     <div className="text-center u-divider-wrapper my-3">
-                        <span className="u-divider u-divider--xs u-divider--text">OR</span>
-                     </div>
-
-                     <div className="row mx-gutters-2 mb-4">
-                        <div className="col-sm-6 mb-2 mb-sm-0">
-                           <button type="button" className="btn btn-block btn-sm btn-facebook">
-                              <span className="fab fa-facebook-f mr-2"></span>Signin with Facebook</button>
-                        </div>
-                        <div className="col-sm-6">
-                           <button type="button" className="btn btn-block btn-sm btn-twitter">
-                              <span className="fab fa-twitter mr-2"></span>Signin with Twitter</button>
-                        </div>
-                     </div>
-                  </form>
+                  </div>
                </div>
             </div>
-         </div>
          </React.Fragment>
       );
    }
@@ -221,7 +242,7 @@ class Signin extends Component {
 Signin.propTypes = {
    classes: PropTypes.object.isRequired,
 };
- 
+
 export default withStyles(styles)(Signin);
 
 const logo = require('../../../assets/imgs/apes-logo.svg')

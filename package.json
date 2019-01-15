@@ -7,6 +7,7 @@
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.3",
+    "calidation": "^1.7.0",
     "filepond": "^3.5.1",
     "filepond-plugin-image-preview": "^3.1.4",
     "jquery": "^3.3.1",
@@ -23,7 +24,7 @@
     "react-loading-screen": "0.0.17",
     "react-overlay-loader": "0.0.3",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
+    "react-scripts": "^2.1.3",
     "react-spinners": "^0.4.7",
     "reactstrap": "^7.0.2"
   },
