@@ -1,8 +1,29 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
+const styles = theme => ({
+   root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+   },
+   formControl: {
+      margin: theme.spacing.unit,
+      minWidth: 160,
+   },
+   selectEmpty: {
+      marginTop: theme.spacing.unit * 2,
+   },
+});
 class AddSchool extends Component {
 
    state = {
@@ -15,17 +36,20 @@ class AddSchool extends Component {
       school: '',
       list_regions: [],
       list_districts: [],
-      list_schools: []
+      list_schools: [],
+      labelWidth: 0,
    }
 
    componentDidMount() {
 
-      if (localStorage.getItem('user') !== null && localStorage.getItem('school') !== null) {
-         this.setState({
-            islogged: true,
-            redirect: true
-         })
-      }
+      // if (localStorage.getItem('school') !== null) {
+      //    this.setState({
+      //       redirect: true,
+      //    })
+      // }
+      this.setState({
+         labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+      });
 
       axios.get('http://apes.com/regions')
          .then(res => {
@@ -39,11 +63,11 @@ class AddSchool extends Component {
       this.setState({
          [eve.target.name]: eve.target.value
       })
-      
+
    }
 
    handleRegionChange = (eve) => {
-      this.setState({region: eve.target.value});
+      this.setState({ region: eve.target.value });
       axios.get('http://apes.com/districts/region/' + eve.target.value)
          .then(res => {
             console.log(res.data);
@@ -53,7 +77,7 @@ class AddSchool extends Component {
    }
 
    handleDistrictChange = (eve) => {
-      this.setState({district: eve.target.value});
+      this.setState({ district: eve.target.value });
       axios.get('http://apes.com/schools/' + eve.target.value)
          .then(res => {
             console.log(res.data);
@@ -72,11 +96,9 @@ class AddSchool extends Component {
          district: this.state.district,
          sid: this.state.school,
       }
-
-      if(localStorage.getItem('school') === null){
-         localStorage.setItem('school', JSON.stringify(school))
-         this.setState({redirect: true})
-      }
+      console.log(this.state)
+      localStorage.setItem('school', JSON.stringify(school))
+      this.setState({ redirect: true })
 
    }
 
@@ -91,98 +113,89 @@ class AddSchool extends Component {
       // if (islogged) {
       //    return <Redirect to="/user/dashboard" />
       // }
-
+      const { classes } = this.props;
+      
       return (
          <div className="container space-top">
             <div className="row">
                <div className="col-md-5 m-auto">
                   <form className="js-validate form-signin p-5" autoComplete="off" onSubmit={this.handleSubmit}>
-                     
-
                      <div className="text-center">
                         <p>Select a School you would like to create a Photo entry for.</p>
                      </div>
-
                      <div className="js-form-message mb-3">
-                        <div className="js-focus-state input-group form">
-                           <div className="input-group-prepend form__prepend">
-                              <span className="input-group-text form__text">
-                                 <span className="fa fa-user form__text-inner"></span>
-                              </span>
-                           </div>
-                           <select
-                              name="category"
-                              id="inputState" value={this.state.category}
-                              className="form-control selectpicker"
-                              onChange={this.handleChange}>
-                              <option value="0">School Category</option>
-                              <option value="ss">Secondary School</option>
-                              <option value="ps">Primary School</option>
-                           </select>
-                        </div>
+                        <FormControl variant="outlined" fullWidth>
+                           <InputLabel ref={ref => { this.InputLabelRef = ref; }}
+                              htmlFor="category"> School Type </InputLabel>
+                           <Select
+                              value={ this.state.category }
+                              onChange={ this.handleChange }
+                              input={ <OutlinedInput labelWidth={this.state.labelWidth}
+                                 name="category" id="category" />
+                              }>
+                              <MenuItem value=""><em>None</em> </MenuItem>
+                              <MenuItem value="ps">Primary School</MenuItem>
+                              <MenuItem value="ss">Secondary School</MenuItem>
+                           </Select>
+                        </FormControl>
                      </div>
-
                      <div className="js-form-message mb-3">
-                        <div className="js-focus-state input-group form">
-                           <div className="input-group-prepend form__prepend">
-                              <span className="input-group-text form__text">
-                                 <span className="fa fa-user form__text-inner"></span>
-                              </span>
-                           </div>
-                           <select
-                              name="region"
-                              id="inputState"
-                              className="form-control selectpicker" onChange={this.handleRegionChange}>
-                              <option value="0">Select Region</option>
+                        <FormControl variant="outlined" fullWidth>
+                           <InputLabel ref={ref => { this.InputLabelRef = ref; }}
+                              htmlFor="category"> Select Region </InputLabel>
+                           <Select
+                              value={ this.state.region }
+                              onChange={ this.handleRegionChange }
+                              input={<OutlinedInput labelWidth={ this.state.labelWidth }
+                                 name="region" id="region" />
+                              }
+                           >
                               {list_regions.map((item, key) => {
-                                 return <option key={key} value={item.id}> {item.name}</option>
+                                 return <MenuItem key={key} value={item.id}> {item.name}</MenuItem>
                               })}
-                           </select>
-                        </div>
+                           </Select>
+                        </FormControl>
                      </div>
-
                      <div className="js-form-message mb-3">
-                        <div className="js-focus-state input-group form">
-                           <div className="input-group-prepend form__prepend">
-                              <span className="input-group-text form__text">
-                                 <span className="fa fa-at form__text-inner"></span>
-                              </span>
-                           </div>
-                           <select
-                              name="district"
-                              id="inputState"
-                              className="form-control selectpicker" onChange={this.handleDistrictChange}>
-                              <option value="0">Choose District</option>
+                        <FormControl variant="outlined" fullWidth>
+                           <InputLabel ref={ref => { this.InputLabelRef = ref; }}
+                              htmlFor="district"> Select District </InputLabel>
+                           <Select
+                              value={this.state.district}
+                              onChange={this.handleDistrictChange}
+                              input={<OutlinedInput labelWidth={this.state.labelWidth}
+                                 name="district" id="district" />
+                              }
+                           >
+                              <MenuItem value=""><em>None</em> </MenuItem>
                               {list_districts.map((item, key) => {
-                                 return <option key={key} value={item.id}> {item.name}</option>
+                                 return <MenuItem key={key} value={item.id}> {item.name}</MenuItem>
                               })}
-                           </select>
-                        </div>
+                           </Select>
+                        </FormControl>
                      </div>
-
                      <div className="js-form-message mb-3">
-                        <div className="js-focus-state input-group form">
-                           <div className="input-group-prepend form__prepend">
-                              <span className="input-group-text form__text">
-                                 <span className="fa fa-phone form__text-inner"></span>
-                              </span>
-                           </div>
-                           <select
-                              name="school"
-                              id="inputState" value={this.state.school }
-                              className="form-control selectpicker" onChange={this.handleChange}>
-                              <option value="0">Choose District</option>
+
+                        <FormControl variant="outlined" fullWidth>
+                           <InputLabel ref={ref => { this.InputLabelRef = ref; }}
+                              htmlFor="school"> Select School </InputLabel>
+                           <Select
+                              value={this.state.school}
+                              onChange={this.handleChange}
+                              input={<OutlinedInput labelWidth={this.state.labelWidth}
+                                 name="school" id="school" />
+                              }
+                           >
+                              <MenuItem value=""><em>None</em> </MenuItem>
                               {list_schools.map((item, key) => {
                                  return <option key={key} value={item.regno}> {item.name}</option>
                               })}
-                           </select>
-                        </div>
+                           </Select>
+                        </FormControl>
                      </div>
-
                      <div className="mb-3">
                         <button type="submit" className="btn btn-block btn-primary">Add School</button>
                      </div>
-
                   </form>
                </div>
             </div>
@@ -191,4 +204,8 @@ class AddSchool extends Component {
    }
 }
 
-export default AddSchool;
+AddSchool.propTypes = {
+   classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(AddSchool);

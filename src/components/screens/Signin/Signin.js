@@ -55,8 +55,6 @@ class Signin extends Component {
       event.preventDefault();
    }
 
-
-
    onSubmit = ({fields, errors,isValid}) => {
       if(isValid){
          axios.post('http://apes.com/user/authenticate', fields)
@@ -124,17 +122,15 @@ class Signin extends Component {
             <div className="container">
                <div className="row">
                   <div className="col-md-5 m-auto">
-                     <div>
+                     <div className="js-validate form-signin p-5">
                         <div className="text-center mb-5">
                            <Link to="/" aria-label="Space">
                               <img className="mb-0" src={logo} alt="Logo" width="160" />
                            </Link>
                         </div>
-
                         <div className="text-center">
                            <p>Signin to manage your account.</p>
                         </div>
-
                         <FormValidation onSubmit={this.onSubmit} config={config} >
                            {
                               ({ fields, erros, submitted }) => (

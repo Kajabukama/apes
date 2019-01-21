@@ -15,10 +15,9 @@ class Logout extends Component {
    }
 
    render(){
+      const { redirect } = this.state;
 
-      if(this.state.redirect){
-         return <Redirect to="/" />
-      }
+      if(redirect){ return <Redirect to="/" /> }
       return(
          <h1>Logout</h1>
       )

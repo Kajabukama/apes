@@ -9,7 +9,6 @@ class PhotoList extends Component {
    }
 
    componentDidMount(){
-
       if(localStorage.getItem('user') === null){
          this.setState({isLogged: false})
       } else {
@@ -22,7 +21,6 @@ class PhotoList extends Component {
          .catch(error => console.log(error))
       }
    }
-
    render() {
       const school = JSON.parse(localStorage.getItem('school'));
       return (
