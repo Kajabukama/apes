@@ -43,13 +43,13 @@ class StudentList extends Component {
                         <div className="container">
                            <div className="row">
                               <div className="col-md-1">
-                                 <Link class="u-icon u-icon--dark rounded-circle" to="/upload/upload-photo">
-                                    <span class="fa fa-camera u-icon__inner"></span>
+                                 <Link className="u-icon u-icon--dark rounded-circle" to="/upload/upload-photo">
+                                    <span className="fa fa-camera u-icon__inner"></span>
                                  </Link>
                               </div>
                               <div className="col-md-1">
-                                 <Link class="u-icon u-icon--primary rounded-circle" to="/upload/upload-csv">
-                                    <span class="fa fa-file-upload u-icon__inner"></span>
+                                 <Link className="u-icon u-icon--primary rounded-circle" to="/upload/upload-csv">
+                                    <span className="fa fa-file-upload u-icon__inner"></span>
                                  </Link>
                               </div>
                            </div>
@@ -76,12 +76,12 @@ class StudentList extends Component {
                                     <td>{ item.thumb }</td>
                                     <td>
                                        <Link className="u-icon u-icon--sm rounded-circle u-icon--primary" to="#">
-                                          <span class="fa fa-pencil-alt u-icon__inner"></span>
+                                          <span className="fa fa-pencil-alt u-icon__inner"></span>
                                        </Link>
                                     </td>
                                     <td>
                                        <Link className="u-icon u-icon--sm rounded-circle u-icon--danger" to="#">
-                                          <span class="fa fa-trash u-icon__inner"></span>
+                                          <span className="fa fa-trash u-icon__inner"></span>
                                        </Link>
                                     </td>
                                  </tr>)
