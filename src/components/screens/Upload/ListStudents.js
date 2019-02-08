@@ -19,7 +19,7 @@ class StudentList extends Component {
          this.setState({isLogged: false})
       } else {
          const user = JSON.parse(localStorage.getItem('user'));
-         axios.get('http://apes.com/uploads/csv/'+ user.id)
+         axios.get('http://localhost:8000/api/upload/list-csv/'+ user.id)
          .then( response => {
             console.log(response)
             this.setState({student_list: response.data})

@@ -45,7 +45,7 @@ class UploadFile extends Component {
       formData.append('sid', school.sid);
       formData.append('file', this.state.selectedFile, this.state.selectedFile.name);
 
-      axios.post('http://apes.com/uploads/csv-upload', formData)
+      axios.post('http://localhost:8000/api/upload/csv-upload', formData)
          .then((response) => {
             console.log(response.data.data.status);
             if (response.data.data.status) {

@@ -78,7 +78,7 @@ class Signup extends Component {
             mobile: this.state.mobile,
             password: this.state.password,
          }
-         axios.post('http://apes.com/user/create', user)
+         axios.post('http://localhost:8000/api/user/create', user)
             .then((response) => {
                console.log(response);
                if(response.data.status === 'available'){

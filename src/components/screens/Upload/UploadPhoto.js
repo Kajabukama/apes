@@ -49,7 +49,7 @@ class UploadPhoto extends Component {
          formData.append('files[' + i + ']', file);
        }
 
-      Axios.post('http://apes.com/uploads/photo-upload', formData)
+      Axios.post('http://localhost:8000/api/upload/photo-upload', formData)
          .then((response) => {
             console.log(response);
             if (response.status) {

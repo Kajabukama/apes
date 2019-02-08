@@ -57,7 +57,7 @@ class Signin extends Component {
 
    onSubmit = ({fields, errors,isValid}) => {
       if(isValid){
-         axios.post('http://apes.com/user/authenticate', fields)
+         axios.post('http://localhost:8000/api/user/authenticate', fields)
          .then(res => {
             console.log(res.data.user);
             if (res.data.status === true) {

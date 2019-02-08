@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-
+import './Upload.css';
 
 class PhotoList extends Component {
 
@@ -13,7 +13,7 @@ class PhotoList extends Component {
          this.setState({isLogged: false})
       } else {
          const user = JSON.parse(localStorage.getItem('user'));
-         axios.get('http://apes.com/uploads/photo/'+ user.id)
+         axios.get('http://localhost:8000/api/upload/list-photos/'+ user.id)
          .then( response => {
             console.log(response)
             this.setState({photo_list: response.data})
@@ -32,11 +32,19 @@ class PhotoList extends Component {
                      
                      <div className="container">
                         <div className="row">
+                           <div className="col text-center mb-5">
+                              <div className="title">THE NATIONAL EXAMINATIONS COUNCIL OF TANZANIA</div>
+                              <div className="title">REGISTERED CANDIDATES FOR CERTIFICATE OF PRIMARY</div>
+                              <div className="title">EXAMINATION EDUCATION (CSEE) NOVEMBER</div>
+                           </div>
+                        </div>
+                        <div className="row">
                            {
                               this.state.photo_list.map((photo,index) => {
                                  return (
-                                    <div className=" mb-1 ml-1" key={photo.id}>
-                                       <img src={ `http://localhost/apes/uploads/${school.sid}/${photo.thumb}`} alt={ photo.id}/>
+                                    <div className="mb-1 ml-1" key={photo.id}>
+                                       <img src={ `http://localhost:8000/uploads/${school.sid}/${photo.thumb}`} alt={ photo.id}/>
+                                       <p style={{ fontSize: '11px'}}>{photo.student_name} <br/> { photo.indexno }</p>
                                     </div>
                                  )
                               })
