@@ -11,20 +11,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-const styles = theme => ({
-   root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-   },
-   formControl: {
-      margin: theme.spacing.unit,
-      minWidth: 160,
-   },
-   selectEmpty: {
-      marginTop: theme.spacing.unit * 2,
-   },
-});
-class AddSchool extends Component {
+import styles from '../../../theme';
+import Navbar from '../../common/Navbar/Navbar';
+
+const API_URL = "http://localhost:8000/api";
+
+
+class Configure extends Component {
 
    state = {
       redirect: false,
@@ -42,16 +35,12 @@ class AddSchool extends Component {
 
    componentDidMount() {
 
-      // if (localStorage.getItem('school') !== null) {
-      //    this.setState({
-      //       redirect: true,
-      //    })
-      // }
+      
       this.setState({
          labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
       });
 
-      axios.get('http://apes.com/regions')
+      axios.get(API_URL + '/region')
          .then(res => {
             this.setState({ list_regions: res.data })
          })
@@ -68,7 +57,7 @@ class AddSchool extends Component {
 
    handleRegionChange = (eve) => {
       this.setState({ region: eve.target.value });
-      axios.get('http://apes.com/districts/region/' + eve.target.value)
+      axios.get(API_URL + '/district/region/' + eve.target.value)
          .then(res => {
             console.log(res.data);
             this.setState({ list_districts: res.data })
@@ -78,7 +67,7 @@ class AddSchool extends Component {
 
    handleDistrictChange = (eve) => {
       this.setState({ district: eve.target.value });
-      axios.get('http://apes.com/schools/' + eve.target.value)
+      axios.get(API_URL +'/school/district/' + eve.target.value)
          .then(res => {
             console.log(res.data);
             this.setState({ list_schools: res.data })
@@ -113,9 +102,11 @@ class AddSchool extends Component {
       // if (islogged) {
       //    return <Redirect to="/user/dashboard" />
       // }
-      const { classes } = this.props;
+      // const { classes } = this.props;
       
       return (
+         <React.Fragment>
+         <Navbar/>
          <div className="container space-top">
             <div className="row">
                <div className="col-md-5 m-auto">
@@ -188,7 +179,7 @@ class AddSchool extends Component {
                            >
                               <MenuItem value=""><em>None</em> </MenuItem>
                               {list_schools.map((item, key) => {
-                                 return <option key={key} value={item.regno}> {item.name}</option>
+                                 return <MenuItem key={key} value={item.regno}> {item.name}</MenuItem>
                               })}
                            </Select>
                         </FormControl>
@@ -200,12 +191,13 @@ class AddSchool extends Component {
                </div>
             </div>
          </div>
+         </React.Fragment>
       );
    }
 }
 
-AddSchool.propTypes = {
+Configure.propTypes = {
    classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AddSchool);
+export default withStyles(styles)(Configure);

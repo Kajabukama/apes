@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import Navbar from '../../common/Navbar/Navbar';
 
 class Dashboard extends Component {
 
@@ -21,12 +22,13 @@ class Dashboard extends Component {
       }
       return(
          <div>
+         <Navbar/>
             <div className="container space-top">
                <div className="row">
                   <div className="col-md-12 m-auto">
                      <h3>Dashboard</h3>
-                     <p>Choose School <Link to="/user/add-school"> Add School</Link></p>
-                     <p> FiUpload CSVle <Link to="/upload/upload-csv"> Upload Student Names</Link></p>
+                     <p>Choose School <Link to="/user/add-school"> View Photo List</Link></p>
+                     <p> FiUpload CSVle <Link to="/upload/upload-csv"> View Student List</Link></p>
                   </div>
                </div>
             </div>

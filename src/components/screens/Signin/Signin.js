@@ -99,7 +99,7 @@ class Signin extends Component {
       const { redirect } = this.state;
 
       if(redirect){
-         return <Redirect to="/user/dashboard"/>
+         return <Redirect to="/user/configure-account"/>
       }
 
       return (

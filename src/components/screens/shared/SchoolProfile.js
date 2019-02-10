@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
-class SchoolProfile extends Component {
+const API_URL = "http://localhost:8000/api";
 
+class SchoolProfile extends Component {
 
    state ={
       region: {},
@@ -15,21 +16,21 @@ class SchoolProfile extends Component {
 
       const school = JSON.parse(localStorage.getItem('school'));
 
-      axios.get('http://apes.com/region/' + school.region)
+      axios.get(API_URL + '/region/' + school.region)
       .then(resp => {
          console.log(resp.data);
          this.setState({region: resp.data});
       })
       .catch(err => console.log(err))
 
-      axios.get('http://apes.com/district/' + school.district)
+      axios.get(API_URL + '/district/' + school.district)
       .then(response => {
          console.log('district: ', response.data)
          this.setState({district: response.data})
       })
       .catch(error => console.log(error))
 
-      axios.get('http://apes.com/schools/primary/registration/' + school.sid)
+      axios.get(API_URL + '/school/center-no/' + school.sid)
       .then(result => {
          console.log('school: ', result.data)
          this.setState({school: result.data})

@@ -13,29 +13,32 @@ import Dashboard from './components/screens/Dashboard/Dashboard';
 import Settings from './components/screens/Settings/Settings';
 import Profile from './components/screens/Profile/Profile';
 import Logout from './components/screens/Logout/Logout';
-import AddSchool from './components/screens/School/School';
 import UploadPhoto from './components/screens/Upload/UploadPhoto';
-import PhotoList from './components/screens/Upload/ListPhotos';
-import StudentList from './components/screens/Upload/ListStudents';
+import ViewPhoto from './components/screens/Upload/ViewPhoto';
+import ViewStudent from './components/screens/Upload/ViewStudent';
+import StudentList from './components/screens/Documents/StudentList';
+import Configure from './components/screens/Settings/Configure';
 
 const Routes = () => {
    return(
       <Switch>
          <Route exact path='/' component={ Home } />
          <Route exact path='/user/signin' component={ Signin } />
+         <Route exact path='/user/configure-account' component={ Configure } />
          <Route exact path='/user/signup' component={ Signup } />
          <Route exact path='/user/logout' component={ Logout } />
          <Route exact path='/user/confirm' component={ Confirm } />
-         <Route exact path='/user/add-school' component={ AddSchool } />
          <Route exact path='/user/forgot-password' component={ ForgotPassword } />
+
          <Route exact path='/user/dashboard' component={ Dashboard } />
          <Route exact path='/user/settings' component={ Settings } />
          <Route exact path='/user/profile' component={ Profile } />
 
          <Route exact path='/upload/upload-csv' component={ UploadFile } />
          <Route exact path='/upload/upload-photo' component={ UploadPhoto } />
-         <Route exact path='/upload/list-photos' component={ PhotoList } />
-         <Route exact path='/upload/list-students' component={ StudentList } />
+         <Route exact path='/upload/view-photos' component={ ViewPhoto } />
+         <Route exact path='/upload/view-students' component={ ViewStudent } />
+         <Route exact path='/upload/generate-pdf' component={ StudentList } />
          <Route exact path='*' component={ NotFound } />
       </Switch>
    );

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import './Upload.css';
+import Navbar from "../../common/Navbar/Navbar";
 
-class PhotoList extends Component {
+class ViewPhoto extends Component {
 
    state = {
       photo_list: []
@@ -25,6 +26,7 @@ class PhotoList extends Component {
       const school = JSON.parse(localStorage.getItem('school'));
       return (
          <React.Fragment>
+         <Navbar/>
             <div className="container space-1 space-3--md">
                <div className="row">
                   {/* <SchoolProfile/> */}
@@ -60,4 +62,4 @@ class PhotoList extends Component {
    }
 }
 
-export default PhotoList;
+export default ViewPhoto;
